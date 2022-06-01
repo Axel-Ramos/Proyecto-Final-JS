@@ -1,0 +1,37 @@
+[
+        {
+            "id":1,
+            "nombre": "Cuchara Helado",
+            "imagen": "./imagenes/cuchara1.jpeg",
+            "precio": 100,
+            "unidad":20
+        },
+        {
+            "id":2,
+            "nombre":"Máscara Facial",
+            "imagen":  "./imagenes/mascara-facial1.jpeg",
+            "precio":300,
+            "unidad":1
+        },
+        {
+            "id":3,
+            "nombre": "Cortante Forma",
+            "imagen": "./imagenes/cortante-formas.jpeg",
+            "precio": 300,
+            "unidad":20
+        },
+        {
+            "id":4,
+            "nombre": "Cortante Letra",
+            "imagen": "./imagenes/cortante-letra.jpeg",
+            "precio": 230,
+            "unidad":24
+        },
+        {
+            "id":5,
+            "nombre": "Cortante Número",
+            "imagen": "./imagenes/cortante-numero.jpeg",
+            "precio": 250,
+            "unidad":10
+        }
+    ]

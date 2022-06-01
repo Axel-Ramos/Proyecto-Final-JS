@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda Online</title>
+    <link rel="stylesheet" href="./style.css">
+</head>
+<body>
+    <main class="main">
+        <h1 class="titulos">TIENDA ONLINE</h1>
+        <div id="carrito" class="tienda"></div>
+        <h2 class="titulos">Carrito de Compras</h2>
+        <section  class="divCarrito">
+            <table>
+                <td class="compras-JS">PRODUCTO</td>
+                <td class="compras-JS">CANTIDAD</td>
+                <td class="compras-JS">CAMBIOS</td>
+                <td class="compras-JS">PRECIO</td>
+                <td class="compras-JS"></td>
+                
+            </table>
+            <div id="listaCarrito"></div>
+            <div id="productosCarrito"></div>
+        </section>
+        <div>
+            <ul class="botonesCompras">
+                <li class="links"><button id="botonComprar" class="botonCarrito">Comprar</button></li>
+                <li class="links"><button id="botonVaciar" class="botonCarrito">Vaciar</button></li>
+            </ul>
+        </div>
+
+    </main>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-pprn3073KE6tl6bjs2QrFaJGz5/SUsLqktiwsUTF55Jfv3qYSDhgCecCxMW52nD2" crossorigin="anonymous"></script>
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="./carrito.js"></script>
+    </body>
+</html>
