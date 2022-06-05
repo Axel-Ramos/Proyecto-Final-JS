@@ -1,5 +1,4 @@
 const contenerStock=document.getElementById("carrito");
-const contenedor=document.getElementById("listaCarrito");
 const carritoProductos=document.getElementById("productosCarrito")
 document.addEventListener('DOMContentLoaded', () => {    
     //Traigo los productos con un fetch
@@ -44,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const carrito = JSON.parse(localStorage.getItem('productos')) || [];            
             // Agregar nuevo item
             const indiceProducto = carrito.findIndex( (elemento) => {
-                return elemento.nombre == productoCarrito.nombre;
+                return elemento.nombre === productoCarrito.nombre;
             });    
             if(indiceProducto === -1) { 
                 // El producto no está agregado
@@ -62,18 +61,18 @@ document.addEventListener('DOMContentLoaded', () => {
                 productoCarrito.cantidad=carrito[productoCarrito.id].cantidad++;
                 carrito.push(productoCarrito)
             }
-            carrito.forEach(producto=>{
-                carritoProductos.innerHTML="";//div del carrito
-                agregarProductosHTML(producto)
-            })
+            carritoProductos.innerHTML="";
+            pintarProductos();
         }//Falta la parte de no repetir productos(boton disable)
         //Seteo el boton para aumentar la cantidad de cada producto seleccionado
         if(e.target.matches(".cambio-mas")){
             sumarCantidad=e.target.parentElement.parentElement;
             const productoCarrito={
-                cantidad:sumarCantidad.querySelector("#cantidadProducto")
+                cantidad:sumarCantidad.querySelector("#cantidadProducto"),
+                precio:parseInt(sumarCantidad.querySelector("#precioProducto"))
             }
             productoCarrito.cantidad.innerHTML++
+            productoCarrito.precio.innerHTML=productoCarrito.cantidad*productoCarrito.precio
         }
         //Seteo el boton para diminuir la cantidad de cada producto seleccionado
         if(e.target.matches(".cambio-menos")){
@@ -106,31 +105,46 @@ function agregarProductosHTML(producto){
     let tablaCarrito=document.createElement("table");
     tablaCarrito.setAttribute=("class", "carrito")
     tablaCarrito.setAttribute=("id", "carrito")
+
     //Agrego columna Nombre
     let columnaNombre=document.createElement("td");
     columnaNombre.innerText = producto.nombre ;
     columnaNombre.setAttribute("class","compras-JS");
-    columnaNombre.setAttribute("id","nombreProducto");
+
     //Agrego columna Cantidad
     let columnaCantidad=document.createElement("td");
     columnaCantidad.innerText = producto.cantidad ;
     columnaCantidad.setAttribute("class","compras-JS");
     columnaCantidad.setAttribute("id","cantidadProducto");
+
     //Agrego columna Cambios con sus botones
     let columnaCambios=document.createElement("td");
     columnaCambios.setAttribute("class","compras-JS");
+
+    //Boton sumas cantidad
     let cambioMas=document.createElement("button");
-    cambioMas.innerText="+"
-    cambioMas.setAttribute("class", "cambio-mas")
+    cambioMas.innerText="+";
+    cambioMas.setAttribute("class", "cambio-mas");
+
+    //Boton restan cantidad
     let cambioMenos=document.createElement("button");
     cambioMenos.innerText="-"
-    cambioMenos.setAttribute("class", "cambio-menos")
+    cambioMenos.setAttribute("class", "cambio-menos");
+
     //Agrego columna Precio
     let columnaPrecio=document.createElement("td");
     columnaPrecio.innerText = producto.precio*producto.cantidad ;
     columnaPrecio.setAttribute("class","compras-JS");
     columnaPrecio.setAttribute("id","precioProducto");
+
+    //Anexo las columnas al DOM
     columnaCambios.append(cambioMas, cambioMenos);
     tablaCarrito.append(columnaNombre, columnaCantidad, columnaCambios, columnaPrecio);
     carritoProductos.append(tablaCarrito);    
 };
+const pintarProductos=()=>{
+    productosElegidos=JSON.parse(localStorage.getItem("productos"));
+    for(i=0;i<=productosElegidos.length;i++){
+        agregarProductosHTML(productosElegidos[i])
+    }
+}
