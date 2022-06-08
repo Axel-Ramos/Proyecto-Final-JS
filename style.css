@@ -7,7 +7,21 @@
     text-decoration: underline;
     margin-left: 30px;
     margin-bottom: 20px;
+    font-size: 30px;
 }
+.cabezaCarrito{
+    display: flex;
+    justify-content: space-around;
+} 
+.listaCarrito{
+    display: flex;
+    list-style-type: none;
+
+}
+.textoCartActivo{
+    font-size: 40px;
+    color: black;
+}  
 .nombreProducto{
     color: #ecec7d;
     text-align: center;
@@ -80,6 +94,11 @@
 }
 .listaTotal{
     display: flex;
+}
+.listaTotal__cosas{
+    list-style-type: none;
+    margin-left: 3.5cm;
+    font-size: 20px;
 }
 .compras{
     color: black;

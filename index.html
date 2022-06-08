@@ -9,7 +9,21 @@
 </head>
 <body>
     <main class="main">
-        <h1 class="titulos">TIENDA ONLINE</h1>
+        <div class="cabezaCarrito">
+            <h1 class="titulos">TIENDA ONLINE</h1>
+                <ul class="listaCarrito">
+                    <li>
+                        <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-shopping-cart" width="45" height="45" viewBox="0 0 24 24" stroke-width="1.5" stroke="#000000" fill="none" stroke-linecap="round" stroke-linejoin="round">
+                            <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
+                            <circle cx="6" cy="19" r="2" />
+                            <circle cx="17" cy="19" r="2" />
+                            <path d="M17 17h-11v-14h-2" />
+                            <path d="M6 5l14 1l-1 7h-13" />
+                        </svg>
+                    </li>
+                    <li id="cantidadCompra" class="textoCartActivo">0</li>
+                </ul>
+        </div>
         <div id="carrito" class="tienda"></div>
         <h2 class="titulos">Carrito de Compras</h2>
         <section  class="divCarrito">
@@ -18,12 +32,15 @@
                 <td class="compras-JS">CANTIDAD</td>
                 <td class="compras-JS">CAMBIOS</td>
                 <td class="compras-JS">PRECIO</td>
-                <td class="compras-JS"></td>
                 
             </table>
             <div id="productosCarrito"></div>
         </section>
         <div>
+            <ul class="listaTotal">
+                <li class="listaTotal__cosas">TOTAL:</li>
+                <li id="total" class="listaTotal__cosas"></li>
+            </ul>
             <ul class="botonesCompras">
                 <li class="links"><button id="botonComprar" class="botonCarrito">Comprar</button></li>
                 <li class="links"><button id="botonVaciar" class="botonCarrito">Vaciar</button></li>

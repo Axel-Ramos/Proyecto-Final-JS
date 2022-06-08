@@ -1,5 +1,6 @@
 const contenerStock=document.getElementById("carrito");
 const carritoProductos=document.getElementById("productosCarrito")
+const carritoActivo=document.getElementById("cantidadCompra")
 document.addEventListener('DOMContentLoaded', () => {    
     //Traigo los productos con un fetch
     const fetchData = async () => {
@@ -27,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });     
     };
     fetchData();
-    localStorage.clear();
+    //localStorage.clear();
     //Seteo todos los eventos de click
     document.addEventListener("click", (e)=>{        
         if(e.target.matches(".botonProductos")){
@@ -61,9 +62,13 @@ document.addEventListener('DOMContentLoaded', () => {
                 productoCarrito.cantidad=carrito[productoCarrito.id].cantidad++;
                 carrito.push(productoCarrito)
             }
+            //Seteo cantidad de productos carrito actico
+            cantidadCompra();
+            //Vacio el div del carrito
             carritoProductos.innerHTML="";
+            //Pinto los productos en el DOM
             pintarProductos();
-        }//Falta la parte de no repetir productos(boton disable)
+        }
         //Seteo el boton para aumentar la cantidad de cada producto seleccionado
         if(e.target.matches(".cambio-mas")){
             sumarCantidad=e.target.parentElement.parentElement;
@@ -85,9 +90,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 e.target.parentElement.parentElement.remove()
             }
         }
+        //Seteo el boton para vaciar el carrito
         if(e.target.matches("#botonVaciar")){
             localStorage.clear();
             carritoProductos.innerHTML=""
+            carritoActivo.innerHTML="0"
+
         }
         //Seteo el boton para realizar la compra
         if(e.target.matches("#botonComprar")){
@@ -99,7 +107,14 @@ document.addEventListener('DOMContentLoaded', () => {
             })
         }    
     });
+
 });
+const pintarProductos=()=>{
+    productosElegidos=JSON.parse(localStorage.getItem("productos"));
+    for(i=0;i<=productosElegidos.length;i++){
+        agregarProductosHTML(productosElegidos[i])
+    }
+}
 function agregarProductosHTML(producto){
     //seteo la lista
     let tablaCarrito=document.createElement("table");
@@ -142,9 +157,7 @@ function agregarProductosHTML(producto){
     tablaCarrito.append(columnaNombre, columnaCantidad, columnaCambios, columnaPrecio);
     carritoProductos.append(tablaCarrito);    
 };
-const pintarProductos=()=>{
-    productosElegidos=JSON.parse(localStorage.getItem("productos"));
-    for(i=0;i<=productosElegidos.length;i++){
-        agregarProductosHTML(productosElegidos[i])
-    }
+const cantidadCompra=()=>{
+    carritoAct=JSON.parse(localStorage.getItem("productos"));
+    carritoActivo.innerHTML=carritoAct.length
 }
