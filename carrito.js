@@ -28,7 +28,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });     
     };
     fetchData();
-    //localStorage.clear();
+    localStorage.clear();
     //Seteo todos los eventos de click
     document.addEventListener("click", (e)=>{        
         if(e.target.matches(".botonProductos")){
