@@ -28,59 +28,62 @@ document.addEventListener('DOMContentLoaded', () => {
         });     
     };
     fetchData();
-    localStorage.clear();
+    //localStorage.clear();
+    pintarProductos();
+});
     //Seteo todos los eventos de click
-    document.addEventListener("click", (e)=>{        
-        if(e.target.matches(".botonProductos")){
-            //Eligo los botones de los productos y agarro los que quiero tener en el LS
-            const producto = e.target.parentElement;
-            const productoCarrito={
-                id:producto.querySelector("button").dataset.id,
-                nombre:producto.querySelector("h1").textContent,
-                precio:producto.querySelector("h2").textContent,
-                cantidad:1
-            }    
-            //Seteo el array carrito
-            const carrito = JSON.parse(localStorage.getItem('productos')) || [];            
-            // Agregar nuevo item
-            const indiceProducto = carrito.findIndex( (elemento) => {
-                return elemento.nombre === productoCarrito.nombre;
-            });    
-            if(indiceProducto === -1) { 
-                // El producto no está agregado
-                productoCarrito.cantidad = 1;
-                carrito.push(productoCarrito);
-            }else { 
-                // El producto está en el array de productos encontrados
-                const productoEncontrado = carrito[indiceProducto];
-                productoEncontrado.cantidad++;
-                carrito[indiceProducto] = productoEncontrado;
-            }
-            // Setear el localStorage
-            localStorage.setItem("productos", JSON.stringify(carrito));
-            if (carrito.hasOwnProperty(productoCarrito.id)){
-                productoCarrito.cantidad=carrito[productoCarrito.id].cantidad++;
-                carrito.push(productoCarrito)
-            }
-            //Seteo cantidad de productos carrito actico
-            cantidadCompra();
-            //Vacio el div del carrito
-            carritoProductos.innerHTML="";
-            //Pinto los productos en el DOM
-            pintarProductos();
+document.addEventListener("click", (e)=>{        
+    if(e.target.matches(".botonProductos")){
+        //Eligo los botones de los productos y agarro los que quiero tener en el LS
+        const producto = e.target.parentElement;
+        const productoCarrito={
+            id:producto.querySelector("button").dataset.id,
+            imagen:producto.querySelector("img").src,
+            nombre:producto.querySelector("h1").textContent,
+            precio:producto.querySelector("h2").textContent,
+            cantidad:1
+        }    
+        //Seteo el array carrito
+        const carrito = JSON.parse(localStorage.getItem('productos')) || [];            
+        // Agregar nuevo item
+        const indiceProducto = carrito.findIndex( (elemento) => {
+            return elemento.nombre === productoCarrito.nombre;
+        });    
+        if(indiceProducto === -1) { 
+            // El producto no está agregado
+            productoCarrito.cantidad = 1;
+            carrito.push(productoCarrito);
+        }else { 
+            // El producto está en el array de productos encontrados
+            const productoEncontrado = carrito[indiceProducto];
+            productoEncontrado.cantidad++;
+            carrito[indiceProducto] = productoEncontrado;
         }
-        //Seteo el boton para aumentar la cantidad de cada producto seleccionado
-        if(e.target.matches(".cambio-mas")){
-            sumarCantidad=e.target.parentElement.parentElement;
-            const productoCarrito={
-                cantidad:sumarCantidad.querySelector("#cantidadProducto"),
-                precio:parseInt(sumarCantidad.querySelector("#precioProducto"))
-            }
-            productoCarrito.cantidad.innerHTML++
-            productoCarrito.precio.innerHTML=productoCarrito.cantidad*productoCarrito.precio
+        // Setear el localStorage
+        localStorage.setItem("productos", JSON.stringify(carrito));
+        if (carrito.hasOwnProperty(productoCarrito.id)){
+            productoCarrito.cantidad=carrito[productoCarrito.id].cantidad++;
+            carrito.push(productoCarrito)
         }
-        //Seteo el boton para diminuir la cantidad de cada producto seleccionado
-        if(e.target.matches(".cambio-menos")){
+        //Seteo cantidad de productos carrito actico
+        cantidadCompra();
+        //Vacio el div del carrito
+        carritoProductos.innerHTML="";
+        //Pinto los productos en el DOM
+        pintarProductos();
+    }
+    //Seteo el boton para aumentar la cantidad de cada producto seleccionado
+    if(e.target.matches(".cambio-mas")){
+        sumarCantidad=e.target.parentElement.parentElement;
+        const productoCarrito={
+            cantidad:sumarCantidad.querySelector("#cantidadProducto"),
+            precio:parseInt(sumarCantidad.querySelector("#precioProducto"))
+        }
+        productoCarrito.cantidad.innerHTML++
+        productoCarrito.precio.innerHTML=productoCarrito.precio*productoCarrito.cantidad
+    }
+    //Seteo el boton para diminuir la cantidad de cada producto seleccionado
+    if(e.target.matches(".cambio-menos")){
             restarCantidad=e.target.parentElement.parentElement;
             const productoCarrito={
                 cantidad:restarCantidad.querySelector("#cantidadProducto")
@@ -89,25 +92,23 @@ document.addEventListener('DOMContentLoaded', () => {
             if(productoCarrito.cantidad.innerHTML<= 0){
                 e.target.parentElement.parentElement.remove()
             }
-        }
-        //Seteo el boton para vaciar el carrito
-        if(e.target.matches("#botonVaciar")){
-            localStorage.clear();
-            carritoProductos.innerHTML=""
-            carritoActivo.innerHTML="0"
+    }
+    //Seteo el boton para vaciar el carrito
+    if(e.target.matches("#botonVaciar")){
+        localStorage.clear();
+        carritoProductos.innerHTML=""
+        carritoActivo.innerHTML="0"
 
-        }
-        //Seteo el boton para realizar la compra
-        if(e.target.matches("#botonComprar")){
+    }
+    //Seteo el boton para realizar la compra
+    if(e.target.matches("#botonComprar")){
             Swal.fire({
                 title: 'Muchas Gracias',
                 text: 'Su compra esta siendo procesada',
                 icon: 'success',
                 confirmButtonText: 'Ok',
             })
-        }    
-    });
-
+    }    
 });
 const pintarProductos=()=>{
     productosElegidos=JSON.parse(localStorage.getItem("productos"));
@@ -153,7 +154,7 @@ function agregarProductosHTML(producto){
     columnaPrecio.setAttribute("id","precioProducto");
 
     //Anexo las columnas al DOM
-    columnaCambios.append(cambioMas, cambioMenos);
+    columnaCambios.append(cambioMas, cambioMenos)
     tablaCarrito.append(columnaNombre, columnaCantidad, columnaCambios, columnaPrecio);
     carritoProductos.append(tablaCarrito);    
 };
